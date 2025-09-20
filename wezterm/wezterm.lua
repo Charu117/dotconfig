@@ -4,29 +4,47 @@ local wezterm = require("wezterm")
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
--- This is where you actually apply your config choices
+-- apply config choices
 
-config.font = wezterm.font("MesloLGS Nerd Font Mono")
+config.font = wezterm.font("Fira Code", { weight = "Regular", stretch = "Normal", italic = false })
 config.font_size = 12
---
--- config.enable_tab_bar = false
 
+config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
--- config.window_background_opacity = 0.8
--- config.macos_window_background_blur = 10
 
--- coolnight colorscheme:
-config.colors = {
-	foreground = "#CBE0F0",
-	background = "#011423",
-	cursor_bg = "#47FF9C",
-	cursor_border = "#47FF9C",
-	cursor_fg = "#011423",
-	selection_bg = "#033259",
-	selection_fg = "#CBE0F0",
-	ansi = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#0FC5ED", "#a277ff", "#24EAF7", "#24EAF7" },
-	brights = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
-}
+wezterm.plugin.require("https://github.com/nekowinston/wezterm-bar").apply_to_config(config, {
+	position = "top",
+	max_width = 32,
+	dividers = "arrows", -- or "slant_left", "slant-right", "rounded", false
+	indicator = {
+		leader = {
+			enabled = true,
+			off = " ",
+			on = " ",
+		},
+		mode = {
+			enabled = true,
+			names = {
+				resize_mode = "RESIZE",
+				copy_mode = "VISUAL",
+				search_mode = "SEARCH",
+			},
+		},
+	},
+	tabs = {
+		numerals = "arabic", -- or "roman"
+		pane_count = "", -- or "subscript", false
+		brackets = {
+			active = { "", " ◉" },
+			inactive = { "", " ◯" },
+		},
+	},
+	clock = { -- note that this overrides the whole set_right_status
+		enabled = false,
+		format = "%H:%M", -- use https://wezfurlong.org/wezterm/config/lua/wezterm.time/Time/format.html
+	},
+})
+config.color_scheme = "Catppuccin Mocha"
 
 -- and finally, return the configuration to wezterm
 return config
