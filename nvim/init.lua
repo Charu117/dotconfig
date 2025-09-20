@@ -1,2 +1,2 @@
-require("charu.core")
-require("charu.lazy")
+require("config.core")
+require("config.lazy")
