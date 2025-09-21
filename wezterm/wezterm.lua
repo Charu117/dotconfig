@@ -1,6 +1,8 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
+local resize = require("resize")
+
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
@@ -13,9 +15,9 @@ config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
 
 wezterm.plugin.require("https://github.com/nekowinston/wezterm-bar").apply_to_config(config, {
-	position = "top",
+	position = "bottom",
 	max_width = 32,
-	dividers = "arrows", -- or "slant_left", "slant-right", "rounded", false
+	dividers = "slant_right", -- or "slant_left", "arrows", "rounded", false
 	indicator = {
 		leader = {
 			enabled = true,
@@ -33,7 +35,7 @@ wezterm.plugin.require("https://github.com/nekowinston/wezterm-bar").apply_to_co
 	},
 	tabs = {
 		numerals = "arabic", -- or "roman"
-		pane_count = "", -- or "subscript", false
+		pane_count = "superscript", -- or "subscript", false
 		brackets = {
 			active = { "", " ◉" },
 			inactive = { "", " ◯" },
@@ -45,6 +47,8 @@ wezterm.plugin.require("https://github.com/nekowinston/wezterm-bar").apply_to_co
 	},
 })
 config.color_scheme = "Catppuccin Mocha"
+
+resize.remember_resize()
 
 -- and finally, return the configuration to wezterm
 return config
