@@ -10,8 +10,21 @@ local config = wezterm.config_builder()
 
 config.font = wezterm.font("Fira Code", { weight = "Regular", stretch = "Normal", italic = false })
 config.font_size = 12
+config.line_height = 1.4
 
 config.hide_tab_bar_if_only_one_tab = true
+config.window_decorations = "RESIZE"
+
+-- padding
+config.window_padding = {
+	left = "25px",
+	right = "25px",
+	top = "25px",
+	bottom = "5px",
+}
+config.enable_scroll_bar = false
+config.use_resize_increments = true
+-- remove title bar, but keep resizable border
 config.window_decorations = "RESIZE"
 
 wezterm.plugin.require("https://github.com/nekowinston/wezterm-bar").apply_to_config(config, {
